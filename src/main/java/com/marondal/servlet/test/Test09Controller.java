@@ -1,4 +1,4 @@
-package com.marondal.servlet.ex;
+package com.marondal.servlet.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,39 +8,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/servlet/ex05")
-public class Ex05Controller extends HttpServlet {
+
+@WebServlet("/servlet/test09")
+public class Test09Controller extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	
+		
 		response.setContentType("text/html");
 		
 		PrintWriter out = response.getWriter();
-		// 이름과 생년월일을 전달 받고
-		// 이름과 나이를 html 표현 
 		
+		// 이름, 자기소개 
 		String name = request.getParameter("name");
-		String birthday = request.getParameter("birthday");
-		
-		int year = Integer.parseInt(birthday.substring(0, 4));
-		
-		int age = 2025 - year + 1;
+		String introduce = request.getParameter("introduce");
 		
 		out.println(""
 				+ "<html>\n"
-				+ "		<head><title>정보</title></head>\n"
-				+ "		<body>\n");
+				+ "		<head><title>지원결과</title></head>\n"
+				+ "		<body>");
 		
-		out.println(""
-				+ "			<h3>이름 : " + name + "</h3>\n"
-				+ "			<h3>나이 : " + age + "</h3>\n");
+		
+		out.println("			<h2>" + name + "님 지원이 완료되었습니다</h2>\n"
+				+ "				<hr>\n"
+				+ "				<div>지원내용</div>\n"
+				+ "				<div>" + introduce + "</div>");
 		
 		
 		out.println(""
 				+ "		</body>\n"
-				+ "</html>\n");
-		
+				+ "</html>");
 	}
 
 }
