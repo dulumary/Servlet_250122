@@ -89,6 +89,10 @@
     musicInfo.put("composer", "아이유,이종훈,이채규");
     musicInfo.put("lyricist", "아이유");
     musicList.add(musicInfo);
+    
+    String idString = request.getParameter("id");
+   
+   String title = request.getParameter("title");
 %>
 
 	<div id="wrap">
@@ -117,38 +121,43 @@
 			</ul>
 		</nav>
 		<section class="contents">
-			<div class="artist d-flex border border-success p-3">
+		<% for(Map<String, Object> music:musicList) { 
+			
+			// id 파라미터가 전달되면, id를 기준으로 일치 조건
+			// title 파라미터가 전달되면, title 기준으로 일치조건
+			int id = 0;
+			if(idString != null) {
+				 id = Integer.parseInt(idString);
+			}
+			
+			int musicId = (Integer)music.get("id");
+			
+			if((id != 0 && musicId == id) || (title != null && title.equals(music.get("title")))) {
+			int time = (Integer)music.get("time");
+		%>
+			<div class="song-info d-flex border border-success p-3">
 				<div>
-					<img width="150" src="<%= artistInfo.get("photo") %>">
+					<img width="200" src="<%= music.get("thumbnail") %>">
 				</div>
-				<div  class="ml-3">
-					<h2><%= artistInfo.get("name") %></h2>
-					<div><%= artistInfo.get("agency") %></div>
-					<div><%= artistInfo.get("debute") %>년 데뷔</div>
+				<div class="ml-4">
+					<div class="display-4"><%= music.get("title") %></div>
+					<div class="text-success font-weight-bold"><%= music.get("singer") %></div>
+					<div class="small">
+						<div>앨범 : <%= music.get("album") %></div>
+						<div>재생시간 : <%= time / 60 %> : <%= time % 60 %></div>
+						<div>작곡가 : <%= music.get("composer") %></div>
+						<div>작사가 : <%= music.get("lyricist") %></div>
+					</div>
+					
 				</div>
 			</div>
-			<div class="song-list mt-4">
-				<h3>곡 목록</h3>
-				<table class="table table-sm text-center">
-					<thead>
-						<tr>
-							<th>no</th>
-							<th>제목</th>
-							<th>앨범</th>
-						</tr>
-					</thead>
-					<tbody>
-					<% for(Map<String, Object> music:musicList) { %>
-						<tr>
-							<td><%= music.get("id") %></td>
-							<td>
-								<a href="/jsp/test/test10/detail.jsp?id=<%= music.get("id") %>"><%= music.get("title") %></a>
-							</td>
-							<td><%= music.get("album") %></td>
-						</tr>
-					<% } %>
-					</tbody>
-				</table>
+		<% 
+			}
+		} %>
+			<div class="mt-4">
+				<h3>가사</h3>
+				<hr>
+				<div>가사 정보 없음</div>
 			</div>
 		</section>
 		<footer>
