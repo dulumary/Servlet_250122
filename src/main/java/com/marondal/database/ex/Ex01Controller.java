@@ -1,4 +1,4 @@
-package com.marondal.database;
+package com.marondal.database.ex;
 
 import java.io.IOException;
 import java.io.PrintWriter;
