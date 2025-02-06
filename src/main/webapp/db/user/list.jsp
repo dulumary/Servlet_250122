@@ -28,16 +28,14 @@
 			</tr>
 		</thead>
 		<tbody>
+		<% while(resultSet.next()) { %>
 			<tr>
-				<td>유재석</td>
-				<td>yu@gmail.com</td>
-				<td>안녕하세요 국민 MC 유재석 입니다.</td>
+				<td><%= resultSet.getString("name") %></td>
+				<td><%= resultSet.getString("email") %></td>
+				<td><%= resultSet.getString("introduce") %></td>
 			</tr>
-			<tr>
-				<td>조세호</td>
-				<td>jo@naver.com</td>
-				<td>상당히 반갑습니다!</td>
-			</tr>
+		<% } %>
+		
 		</tbody>
 	</table>
 
