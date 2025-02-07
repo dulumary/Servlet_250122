@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.marondal.common.MysqlService" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +11,11 @@
 </head>
 <body>
 <%
-	MysqlService mysqlService = new MysqlService();
+	MysqlService mysqlService = MysqlService.getInstance();
 
 	mysqlService.connect();
 	
-	ResultSet resultSet = mysqlService.select("SELECT * FROM `new_user` ORDER BY `id` DESC");
+	List<Map<String, Object>> resultList = mysqlService.select("SELECT * FROM `new_user` ORDER BY `id` DESC");
 %>
 
 	<h3>사용자 목록</h3>
@@ -28,11 +29,11 @@
 			</tr>
 		</thead>
 		<tbody>
-		<% while(resultSet.next()) { %>
+		<% for(Map<String, Object> result:resultList) { %>
 			<tr>
-				<td><%= resultSet.getString("name") %></td>
-				<td><%= resultSet.getString("email") %></td>
-				<td><%= resultSet.getString("introduce") %></td>
+				<td><%= result.get("name") %></td>
+				<td><%= result.get("email") %></td>
+				<td><%= result.get("introduce") %></td>
 			</tr>
 		<% } %>
 		
